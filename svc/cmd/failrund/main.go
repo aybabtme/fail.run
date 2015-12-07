@@ -19,6 +19,7 @@ var (
 
 func main() {
 	flag.Parse()
+
 	l, err := net.Listen("tcp", *iface+":"+*port)
 	if err != nil {
 		log.Err(err).Fatal("can't listen")

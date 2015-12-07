@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"github.com/aybabtme/log"
+
+	_ "net/http/pprof"
 )
 
 const idLen = 32
@@ -57,6 +59,11 @@ func (svc *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		handler.ServeHTTP(w, r)
 		return
 	}
+	if strings.HasPrefix(r.URL.Path, "/debug/") {
+		http.DefaultServeMux.ServeHTTP(w, r)
+		return
+	}
+
 	svc.files.ServeHTTP(w, r)
 }
 
